@@ -22,9 +22,15 @@ const WatchedBox = ({ watched }) => {
 };
 
 export const WatchedSummary = ({ watched }) => {
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  const avgImdbRating = average(
+    watched.map((movie) => (movie ? movie.imdbRating : ''))
+  );
+  const avgUserRating = average(
+    watched.map((movie) => (movie ? movie.userRating : ''))
+  );
+  const avgRuntime = average(
+    watched.map((movie) => (movie ? movie.runtime : ''))
+  );
 
   return (
     <div className="summary">
@@ -56,13 +62,16 @@ export default WatchedBox;
 export const WatchedMoviesList = ({ watched, onDeleteWatched }) => {
   return (
     <ul className="list">
-      {watched.map((movie) => (
-        <WatchedMovie
-          movie={movie}
-          key={movie.imdbId}
-          onDeleteWatched={onDeleteWatched}
-        />
-      ))}
+      {watched.map(
+        (movie) =>
+          movie && (
+            <WatchedMovie
+              movie={movie}
+              key={movie.imdbId}
+              onDeleteWatched={onDeleteWatched}
+            />
+          )
+      )}
     </ul>
   );
 };
