@@ -9,8 +9,13 @@ import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { HiEye } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { HiArrowDownOnSquare, HiArrowUpOnSquare } from 'react-icons/hi2';
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiMiniTrash,
+} from 'react-icons/hi2';
 import { useCheckout } from '../check-in-out/useCheckout';
+import { useDeleteBooking } from '../bookings/useDeleteBooking';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -54,6 +59,7 @@ function BookingRow({
   },
 }) {
   const navigate = useNavigate();
+  const { deleteBooking, isDeleting } = useDeleteBooking();
   const { checkout, isCheckingOut } = useCheckout();
 
   const statusToTagName = {
@@ -116,6 +122,14 @@ function BookingRow({
               Check out
             </Menus.Button>
           )}
+
+          <Menus.Button
+            icon={<HiMiniTrash />}
+            onClick={() => deleteBooking(bookingId)}
+            disabled={isDeleting}
+          >
+            Delete Booking
+          </Menus.Button>
         </Menus.List>
       </Menus.Menu>
     </Table.Row>
