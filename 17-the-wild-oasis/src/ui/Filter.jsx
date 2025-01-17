@@ -48,16 +48,20 @@ function Filter({ filterField, options }) {
 
   return (
     <StyledFilter>
-      {options.map((option) => (
-        <FilterButton
-          key={option.value}
-          onClick={() => handleClick(option.value)}
-          active={option.value === currentFilter}
-          disabled={option.value === currentFilter}
-        >
-          {option.label}
-        </FilterButton>
-      ))}
+      {options.map((option) => {
+        let activeAndOrDisabled = option.value === currentFilter;
+
+        return (
+          <FilterButton
+            key={option.value}
+            onClick={() => handleClick(option.value)}
+            active={'' + activeAndOrDisabled}
+            disabled={activeAndOrDisabled}
+          >
+            {option.label}
+          </FilterButton>
+        );
+      })}
     </StyledFilter>
   );
 }
